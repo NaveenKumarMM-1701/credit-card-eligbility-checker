@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com" rel="stylesheet"/>
+    <link rel="stylesheet" href="credit1.css"/>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</head>
+<body>
+    <div class="card">
+        <h3 class="bank">bank</h3>
+        <img src="card1.png" class="chip"/>
+        <img src="card3.png" class="indicator"/>
+        <h3 class="number">4100 1234 5678 XXXX</h3>
+        <h5 class="card-holder"><span>Card Holder</span><br>
+        NAVEEN KUMAR</h5>
+        <h5 class="valid"><span>expiry date</span><br />20/30</h5>
+        <img src="card2.png" class="logo"/>
+    </div>
+
+
+    <div class="login-container glass">
+        <h2>Employee Login Portal</h2>
+        <form id="login-form" method="POST" onsubmit="handleSubmit(event);">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="form12" name="userId" placeholder="Enter your password"><box-icon name='user'></box-icon>
+            <label for="form12">User ID</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="form12" name="password" placeholder="Enter your password"><box-icon name='lock-alt'></box-icon>
+            <label for="form12">Password</label>
+          </div>
+          <button type="submit" class="btn btn-outline-dark"><strong>Login</strong></button>
+        </form>
+      </div>
+</body>
+</html>
+<script>
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(document.getElementById("login-form"));
+    const json = {};
+    formData.forEach((value, key) => {
+      json[key] = value;
+    });
+    try {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(json)
+      });
+      if (response.status === 401) {
+        const data = await response.json();
+        alert(data.error);
+      }
+    } catch (e) {
+      window.location.href = "https://www.google.com";
+    }
+  }
+</script>
